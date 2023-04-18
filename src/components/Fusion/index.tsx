@@ -41,7 +41,7 @@ const Fusion = ({ buyToken, sellToken }: iFusion) => {
               : (
                   Number(result?.toTokenAmount) /
                   Math.pow(10, result?.toToken?.decimals)
-                ).toFixed(3)}{" "}
+                ).toFixed(5)}{" "}
             {buyToken.symbol}
           </span>
         </TokenContainer>

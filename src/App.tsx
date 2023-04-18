@@ -150,8 +150,32 @@ function App() {
     );
     const tempBuyValue = (
       Number(result.toTokenAmount) / Math.pow(10, result.toToken.decimals)
-    ).toFixed(3);
+    ).toFixed(5);
     setBuyValue(Number(tempBuyValue));
+    setBuyFlag(false);
+  };
+
+  const onExchangeToken = async (
+    tokenInfo: iTokenListProps,
+    sendAmount: number
+  ) => {
+    if (Number(sendAmount) === 0) {
+      setBuyFlag(true);
+      return;
+    }
+    const fromTokenAddress = tokenInfo.address;
+    const toTokenAddress = sellToken.address;
+    const amount = Math.pow(10, tokenInfo.decimals) * sendAmount;
+    const result = await getTokenValue(
+      fromTokenAddress,
+      toTokenAddress,
+      amount
+    );
+    const tempBuyValue = (
+      Number(result.toTokenAmount) / Math.pow(10, result.toToken.decimals)
+    ).toFixed(5);
+    setBuyValue(Number(tempBuyValue));
+    setSellToken(tokenInfo);
     setBuyFlag(false);
   };
 
@@ -170,7 +194,7 @@ function App() {
     );
     const tempBuyValue = (
       Number(result.toTokenAmount) / Math.pow(10, result.toToken.decimals)
-    ).toFixed(3);
+    ).toFixed(5);
     setBuyValue(Number(tempBuyValue));
     setSellToken(tokenInfo);
     setBuyFlag(false);
@@ -192,7 +216,7 @@ function App() {
     );
     const tempBuyValue = (
       Number(result.toTokenAmount) / Math.pow(10, result.toToken.decimals)
-    ).toFixed(3);
+    ).toFixed(5);
     setBuyValue(Number(tempBuyValue));
     setBuyToken(tokenInfo);
     setBuyFlag(false);
@@ -201,9 +225,11 @@ function App() {
   const onExchange = () => {
     const tempSellToken = sellToken;
     const tempBuyToken = buyToken;
+    const tempBuyValue = buyValue;
     setSellToken(tempBuyToken);
     setBuyToken(tempSellToken);
-    onChangSellToken(tempBuyToken);
+    setSellValue(tempBuyValue);
+    onExchangeToken(tempBuyToken, tempBuyValue);
   };
 
   return (
@@ -212,7 +238,7 @@ function App() {
         <TradeWrapper>
           <div>
             <SettingContainer>
-              <MdRefresh color="#fff" size="27px" />
+              <MdRefresh color="#fff" size="27px" onClick={() => {}} />
               <MdSettings color="#fff" size="27px" />
             </SettingContainer>
 

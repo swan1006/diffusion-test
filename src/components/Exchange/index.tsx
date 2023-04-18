@@ -46,7 +46,7 @@ const ExchangeForm = ({
   return (
     <ExchangeContainer>
       <ValueContainer>
-        <SubTitle isAlign={true}>~$10921.69</SubTitle>
+        <SubTitle isAlign={true}>~$2108.072</SubTitle>
         {isload ? (
           <LoadingContainer>
             <Loading />
